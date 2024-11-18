@@ -55,8 +55,9 @@ const headerVariant = cva(
 type HeaderPops = {};
 
 export function Header({}: HeaderPops) {
+  const headerID = "Lqj8a0";
   return (
-    <header className={headerVariant()}>
+    <header id={headerID} className={headerVariant()}>
       <input type="checkbox" id="vEALn1" className="hidden" />
       <ul className="flex items-center gap-4 min-h-[--header-height]">
         <li>
@@ -83,10 +84,7 @@ export function Header({}: HeaderPops) {
         </li>
         <li>
           <Label htmlFor="vEALn1">
-            <Menu>
-              <Menu.Stick className="-translate-y-1 group-has-[#vEALn1:checked]:-rotate-45 group-has-[#vEALn1:checked]:translate-y-0" />
-              <Menu.Stick className="translate-y-1 group-has-[#vEALn1:checked]:rotate-45 group-has-[#vEALn1:checked]:translate-y-0" />
-            </Menu>
+            <Menu headerID={headerID} />
           </Label>
         </li>
       </ul>

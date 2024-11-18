@@ -1,38 +1,34 @@
+"use client";
+
 import { cn } from "@cc/ui/lib/utils";
-import { Children, cloneElement, isValidElement } from "react";
+import { useToggle } from "react-use";
+import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 
 type MenuProps = {
+  headerID: string;
   className?: string;
   size?: number;
   spacing?: number;
   stickThickness?: number;
-  children?: React.ReactNode;
 } & Omit<React.SVGAttributes<SVGElement>, "width" | "height">;
-type MenuStickProps = {
-  className?: string;
-} & React.ComponentPropsWithoutRef<"rect">;
 
 export function Menu({
+  headerID,
   className,
   size = 16,
   spacing = 0.5,
   stickThickness = 1,
-  children,
 }: MenuProps) {
+  const [expand, toggle] = useToggle(false);
   const width = size - spacing * 2;
   const centerY = size / 2;
   const halfThickness = stickThickness / 2;
 
-  const sticks = Children.map(children, (child) => {
-    if (!isValidElement<MenuStickProps>(child)) return child;
-    if (child.type !== MenuStick) return child;
-    return cloneElement(child, {
-      x: spacing,
-      y: centerY - halfThickness,
-      width,
-      height: stickThickness,
-    });
-  });
+  function handleMenuToggle() {
+    const scrollHandler = expand ? enableBodyScroll : disableBodyScroll;
+    scrollHandler(document.getElementById(headerID));
+    toggle();
+  }
 
   return (
     <svg
@@ -42,20 +38,28 @@ export function Menu({
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      onClick={handleMenuToggle}
     >
-      {sticks}
+      <rect
+        x={spacing}
+        y={centerY - halfThickness}
+        width={width}
+        height={stickThickness}
+        className={cn(
+          "origin-center ease-out-quart duration-150",
+          expand ? "-rotate-45" : "-translate-y-1",
+        )}
+      />
+      <rect
+        x={spacing}
+        y={centerY - halfThickness}
+        width={width}
+        height={stickThickness}
+        className={cn(
+          "origin-center ease-out-quart duration-150",
+          expand ? "rotate-45" : "translate-y-1",
+        )}
+      />
     </svg>
   );
 }
-
-function MenuStick({ className, ...props }: MenuStickProps) {
-  return (
-    <rect
-      rx="0.5"
-      className={cn("origin-center ease-out-quart duration-150", className)}
-      {...props}
-    ></rect>
-  );
-}
-
-Menu.Stick = MenuStick;
