@@ -1,0 +1,18 @@
+:root {
+  --header-top: 8px;
+  --header-height: 64px;
+  --header-round: 12px;
+  --header-width: calc(
+    100vw - (var(--page-padding-left) / 2) - (var(--page-padding-right) / 2)
+  );
+
+  --header-collapse-clip: inset(
+    0 0 calc(100% - var(--header-height)) 0 round var(--header-round)
+  );
+}
+
+@media (min-width: 641px) {
+  :root {
+    --header-top: 16px;
+  }
+}
