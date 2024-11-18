@@ -52,15 +52,20 @@ const headerVariant = cva(
   },
 );
 
-type HeaderPops = {} & VariantProps<typeof headerVariant>;
+type HeaderPops = {};
 
-export function Header(props: HeaderPops) {
+export function Header({}: HeaderPops) {
   return (
-    <header className={headerVariant(props)}>
+    <header className={headerVariant()}>
       <input type="checkbox" id="vEALn1" className="hidden" />
       <ul className="flex items-center gap-4 min-h-[--header-height]">
         <li>
-          <Link href="/" aria-label="Navigate to home" className="block px-2">
+          <Link
+            href="/"
+            aria-label="Navigate to home"
+            rel="noopener noreferrer"
+            className="block px-2"
+          >
             <Image
               width="24"
               height="24"
@@ -70,11 +75,18 @@ export function Header(props: HeaderPops) {
           </Link>
         </li>
         <li className="ml-auto">
-          <Button variant="secondary">Log in</Button>
+          <Button variant="secondary" asChild>
+            <Link href="/login" aria-label="Log in" rel="noopener noreferrer">
+              Log in
+            </Link>
+          </Button>
         </li>
         <li>
           <Label htmlFor="vEALn1">
-            <Menu />
+            <Menu>
+              <Menu.Stick className="-translate-y-1 group-has-[#vEALn1:checked]:-rotate-45 group-has-[#vEALn1:checked]:translate-y-0" />
+              <Menu.Stick className="translate-y-1 group-has-[#vEALn1:checked]:rotate-45 group-has-[#vEALn1:checked]:translate-y-0" />
+            </Menu>
           </Label>
         </li>
       </ul>
