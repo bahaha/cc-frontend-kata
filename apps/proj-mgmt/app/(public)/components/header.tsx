@@ -1,11 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import type { ReactNode } from "react";
 
 import { Label } from "@cc/ui/components/label";
-import { Button } from "@cc/ui/components/button";
 
 import { Menu } from "./menu";
+import { Home, Login, MobileSitemap } from "./nav";
 
 const headerVariant = cva(
   [
@@ -52,42 +51,28 @@ const headerVariant = cva(
   },
 );
 
-type HeaderPops = {};
+type HeaderPops = {
+  children?: ReactNode;
+};
 
-export function Header({}: HeaderPops) {
+export function Header({ children }: HeaderPops) {
   const headerID = "Lqj8a0";
   return (
     <header id={headerID} className={headerVariant()}>
       <input type="checkbox" id="vEALn1" className="hidden" />
-      <ul className="flex items-center gap-4 min-h-[--header-height]">
-        <li>
-          <Link
-            href="/"
-            aria-label="Navigate to home"
-            rel="noopener noreferrer"
-            className="block px-2"
-          >
-            <Image
-              width="24"
-              height="24"
-              src="/logo.svg"
-              alt="CC's Proj Mgmt"
-            />
-          </Link>
-        </li>
-        <li className="ml-auto">
-          <Button variant="secondary" asChild>
-            <Link href="/login" aria-label="Log in" rel="noopener noreferrer">
-              Log in
-            </Link>
-          </Button>
-        </li>
-        <li>
-          <Label htmlFor="vEALn1">
-            <Menu headerID={headerID} />
-          </Label>
-        </li>
-      </ul>
+      <div className="w-full h-full flex flex-col">
+        <ul className="flex justify-between items-center gap-4 min-h-[--header-height]">
+          <Home />
+          {children}
+          <Login />
+          <li className="sm:hidden">
+            <Label htmlFor="vEALn1">
+              <Menu headerID={headerID} />
+            </Label>
+          </li>
+        </ul>
+        <MobileSitemap className="flex-grow px-2 pt-8 pb-6" />
+      </div>
     </header>
   );
 }

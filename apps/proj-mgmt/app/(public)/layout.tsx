@@ -1,5 +1,6 @@
-import { Header } from "./components/header";
 import "./styles.css";
+
+import { Header } from "./components/header";
 
 type PublicPageLayoutProps = {
   children: React.ReactNode;

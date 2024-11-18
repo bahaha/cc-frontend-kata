@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@cc/ui/lib/utils";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { useToggle } from "react-use";
-import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 
 type MenuProps = {
   headerID: string;
@@ -37,7 +37,7 @@ export function Menu({
       viewBox={`0 0 ${size} ${size}`}
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={cn("cursor-pointer", className)}
       onClick={handleMenuToggle}
     >
       <rect

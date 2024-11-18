@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "body-scroll-lock": "4.0.0-beta.0",
+    "lucide-react": "^0.460.0",
     "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-use": "^17.5.1",
+    "simple-icons": "^13.17.0",
     "sst": "3.3.22"
   },
   "devDependencies": {
