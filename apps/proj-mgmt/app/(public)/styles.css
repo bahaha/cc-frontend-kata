@@ -9,6 +9,10 @@
   --header-collapse-clip: inset(
     0 0 calc(100% - var(--header-height)) 0 round var(--header-round)
   );
+  --header-expand-clip: inset(
+    0 0 var(--header-top) 0 round var(--header-round)
+  );
+  --header-expand-height: calc(100% - var(--header-top));
 }
 
 @media (min-width: 641px) {

@@ -1,12 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
+
+import { Label } from "@cc/ui/components/label";
+import { Button } from "@cc/ui/components/button";
 
 import { Menu } from "./menu";
 
 const headerVariant = cva(
   [
-    "group fixed bg-background px-3",
-    "inset-x-0 inset-y-[--header-top] max-w-[--header-width] mx-auto rounded-xl",
+    "group fixed bg-background px-3 rounded-[--header-round] select-none",
+    "inset-x-0 inset-y-[--header-top] max-w-[--header-width] mx-auto",
   ],
   {
     variants: {
@@ -25,7 +29,17 @@ const headerVariant = cva(
       },
       collapseState: {
         default: [
+          "will-change-[clip-path]",
           "before:h-[--header-height] [clip-path:var(--header-collapse-clip)]",
+          // expand
+          "has-[#vEALn1:checked]:[clip-path:var(--header-expand-clip)]",
+          "has-[#vEALn1:checked]:before:h-[--header-expand-height]",
+        ],
+      },
+      animation: {
+        default: [
+          "transition-[clip-path,background] ease-out-quad duration-200",
+          "before:transition-[height] before:ease-out-quad before:duration-200",
         ],
       },
     },
@@ -33,6 +47,7 @@ const headerVariant = cva(
       backdrop: "default",
       border: "default",
       collapseState: "default",
+      animation: "default",
     },
   },
 );
@@ -42,9 +57,27 @@ type HeaderPops = {} & VariantProps<typeof headerVariant>;
 export function Header(props: HeaderPops) {
   return (
     <header className={headerVariant(props)}>
-      Header works
-      <Image width="24" height="24" src="/logo.svg" alt="CC's Proj Mgmt" />
-      <Menu />
+      <input type="checkbox" id="vEALn1" className="hidden" />
+      <ul className="flex items-center gap-4 min-h-[--header-height]">
+        <li>
+          <Link href="/" aria-label="Navigate to home" className="block px-2">
+            <Image
+              width="24"
+              height="24"
+              src="/logo.svg"
+              alt="CC's Proj Mgmt"
+            />
+          </Link>
+        </li>
+        <li className="ml-auto">
+          <Button variant="secondary">Log in</Button>
+        </li>
+        <li>
+          <Label htmlFor="vEALn1">
+            <Menu />
+          </Label>
+        </li>
+      </ul>
     </header>
   );
 }
