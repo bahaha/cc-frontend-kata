@@ -1,9 +1,8 @@
 import Link from "next/link";
 import type { HTMLAttributes, Key } from "react";
 
+import { LinkProps } from "@cc/proj-mgnt/lib/types";
 import { cn } from "@cc/ui/lib/utils";
-
-type LinkProps = Parameters<typeof Link>[0];
 
 const navItems: LinkProps[] = [
   { href: "/plan", children: "Plan" },
@@ -25,8 +24,8 @@ type MobileSitemapProps = { className?: string };
 
 export function MobileSitemap({ className }: MobileSitemapProps) {
   return (
-    <nav className={cn("flex flex-col justify-between", className)}>
-      <ul className="grid grid-cols-2 auto-rows-auto gap-y-4 sm:hidden">
+    <nav className={cn("sm:hidden flex flex-col justify-between", className)}>
+      <ul className="grid grid-cols-2 auto-rows-auto gap-y-4">
         {navItems.map((nav) => (
           <MobileNavItem key={nav.href as string} {...nav} />
         ))}
@@ -40,13 +39,11 @@ export function MobileSitemap({ className }: MobileSitemapProps) {
   );
 }
 
-type MobileNavItemProps = {
-  key: Key;
-} & LinkProps;
+type MobileNavItemProps = {} & LinkProps;
 
-function MobileNavItem({ key, href, children, ...props }: MobileNavItemProps) {
+function MobileNavItem({ href, children, ...props }: MobileNavItemProps) {
   return (
-    <li key={key}>
+    <li>
       <Link
         className="hover:text-foreground/60"
         href={href}

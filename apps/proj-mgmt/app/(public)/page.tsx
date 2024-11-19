@@ -3,7 +3,7 @@ type HomeProps = {};
 export default function Home({}: HomeProps) {
   return (
     <main>
-      <p className="bg-rose-100">
+      <p className="bg-sky-50 p-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu
         suscipit metus, vitae eleifend dui. Nullam nec nisi justo. Nam
         ullamcorper lorem sed diam lacinia volutpat. Vivamus euismod massa nec
@@ -40,7 +40,7 @@ export default function Home({}: HomeProps) {
         posuere cubilia curae; Praesent nec vehicula erat, quis consectetur
         tortor. Proin porta molestie elit faucibus porttitor.
       </p>
-      <p className="bg-sky-100">
+      <p className="bg-rose-50 p-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sapien
         ipsum, scelerisque nec porta eget, pharetra et justo. Aenean ultrices,
         elit maximus congue tincidunt, mauris nunc sagittis velit, ut pretium

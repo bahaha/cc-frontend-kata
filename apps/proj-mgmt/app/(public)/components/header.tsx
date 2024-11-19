@@ -1,10 +1,14 @@
 import { cva } from "class-variance-authority";
-import type { ReactNode } from "react";
 
 import { Label } from "@cc/ui/components/label";
+import {
+  NavigationMenuList,
+  NavigationMenuPrimitive,
+} from "@cc/ui/components/navigation-menu";
 
 import { Menu } from "./menu";
-import { Home, Login, MobileSitemap } from "./nav";
+import { DesktopNavbar, Home, Login, MobileSitemap } from "./nav";
+import { NavigationMenuViewport } from "./navigation-menu-viewport";
 
 const headerVariant = cva(
   [
@@ -29,7 +33,7 @@ const headerVariant = cva(
       collapseState: {
         default: [
           "will-change-[clip-path]",
-          "before:h-[--header-height] [clip-path:var(--header-collapse-clip)]",
+          "before:h-[--header-collapse-height] [clip-path:var(--header-collapse-clip)]",
           // expand
           "has-[#vEALn1:checked]:[clip-path:var(--header-expand-clip)]",
           "has-[#vEALn1:checked]:before:h-[--header-expand-height]",
@@ -51,28 +55,30 @@ const headerVariant = cva(
   },
 );
 
-type HeaderPops = {
-  children?: ReactNode;
-};
+type HeaderPops = {};
 
-export function Header({ children }: HeaderPops) {
+export function Header({}: HeaderPops) {
   const headerID = "Lqj8a0";
   return (
     <header id={headerID} className={headerVariant()}>
       <input type="checkbox" id="vEALn1" className="hidden" />
-      <div className="w-full h-full flex flex-col">
-        <ul className="flex justify-between items-center gap-4 min-h-[--header-height]">
+      <NavigationMenuPrimitive.Root className="w-full h-full flex flex-col">
+        <NavigationMenuList className="flex justify-between items-center gap-4 min-h-[--header-height]">
           <Home />
-          {children}
+          <DesktopNavbar />
           <Login />
           <li className="sm:hidden">
             <Label htmlFor="vEALn1">
               <Menu headerID={headerID} />
             </Label>
           </li>
-        </ul>
+        </NavigationMenuList>
         <MobileSitemap className="flex-grow px-2 pt-8 pb-6" />
-      </div>
+        <NavigationMenuViewport
+          headerID={headerID}
+          viewportPropertyName="--nav-viewport-height"
+        />
+      </NavigationMenuPrimitive.Root>
     </header>
   );
 }
